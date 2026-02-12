@@ -25,7 +25,8 @@ app.use((req, res, next) => {
 app.use(cors({
   origin: [
     'http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:4173', 'http://127.0.0.1:4173', 'http://192.168.0.101:4173', 'http://192.168.0.39:5173',
-    'https://velair-front.onrender.com'
+    'https://velair-front.onrender.com',
+    'https://velairextrafront.onrender.com'
   ],
 }));
 app.use(express.urlencoded({ extended: true }));
