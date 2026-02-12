@@ -1,0 +1,215 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String?
+  phone        String?
+  passwordHash String
+  role         UserRole @default(USER)
+  createdAt    DateTime @default(now())
+
+  tempPasswordHash      String?   // It can be null (when there is no active recovery).
+  tempPasswordExpiresAt DateTime? // Temporary password expiration date
+
+  authTokens UserAuthToken[]
+
+  instructor Instructor?
+}
+
+model UserAuthToken {
+  id      String  @id @default(uuid())
+  tokenHash   String  @unique
+  revoked Boolean @default(false)
+
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+  lastUsedAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([tokenHash])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  INSTRUCTOR
+}
+
+model ExamQuestionTheme {
+  id        String     @id @default(uuid())
+  title     String
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  questions ExamQuestion[]
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt])
+}
+
+model ExamMultiChoiceOption {
+  id         String    @id @default(uuid())
+  title      String
+  question   ExamQuestion? @relation(fields: [questionId], references: [id])
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  questionId String?
+  isCorrect Boolean
+  index Int
+  
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt])
+}
+
+enum ExamQuestionType {
+  MULTI_CHOICE
+  OPEN_FIELD
+}
+
+model ExamQuestion {
+  id String @id @default(uuid())
+
+  themeId String
+  theme   ExamQuestionTheme @relation(fields: [themeId], references: [id], onDelete: Cascade)
+
+  text String
+
+  type ExamQuestionType //  Multi/Open 
+
+  multiChoiceOptions ExamMultiChoiceOption[] // Each question has many choices
+
+  value Float
+
+  examQuestions ExamTemplateQuestion[]
+
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt])
+}
+
+model ExamTemplate {
+  id             String  @id @default(uuid())
+  title          String
+  enableMaxTime  Boolean @default(false)
+  maxTimeSeconds Int
+
+  questions ExamTemplateQuestion[]
+
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt])
+}
+
+model ExamTemplateQuestion {
+  id String @id @default(uuid())
+
+  examTemplateId String
+  questionId     String
+
+  examTemplate ExamTemplate @relation(fields: [examTemplateId], references: [id], onDelete: Cascade)
+  question     ExamQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  value      Float // The value for that specific exam
+  orderIndex Int
+
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt])
+}
+
+model Instructor {
+  id String @id @default(uuid())
+  userId String @unique @default(uuid())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  name String
+  cpf String
+  address String
+  state String
+  city String
+  rg String
+  id_emitter String
+  id_emission_date String
+  postalCode String
+  sex String
+  phone String
+  nationality String
+  naturalization String
+  canac String
+
+  flights Flight[]
+
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt])
+}
+
+model Aircraft {
+  id String @id @default(uuid())
+
+  modelFullName String
+  modelIcaoName String
+  registration String
+
+  flights Flight[]
+ 
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt]) 
+}
+
+enum FlightType {
+  flight
+  ground_school
+}
+model Flight {
+  id String @id @default(uuid())
+  aircraftId String
+  instructorId String
+
+  flightType FlightType @default(flight)
+  title String
+  from_datetime DateTime
+  to_datetime DateTime
+  flightTime Float
+  aircraft Aircraft @relation(fields: [aircraftId], references: [id], onDelete: Cascade)
+  instructor Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+  isConfirmed Boolean
+  isCanceled Boolean
+  cancelReason String @default("")
+
+
+  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  deletedAt DateTime?
+  @@index([updatedAt, deletedAt]) 
+}
