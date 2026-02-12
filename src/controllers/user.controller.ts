@@ -2,11 +2,11 @@ import type { RequestHandler } from "express";
 import UserService from '@/services/user.service';
 import Env from "@/utils/Env";
 
-export const getAllUsers:RequestHandler = async (req, res, next) => {
+export const getAllUsers: RequestHandler = async (req, res, next) => {
     if (Env.env == Env.types.PRODUCTION) {
         return res.status(503).send();
     }
-    
+
     UserService.getAll().then(r => {
         res.json({
             result: r
@@ -14,24 +14,25 @@ export const getAllUsers:RequestHandler = async (req, res, next) => {
     })
 }
 
-export const getUserById:RequestHandler = (req, res, next) => {
+export const getUserById: RequestHandler = (req, res, next) => {
     res.json({
         success: true,
         id: req.params.id
     })
 }
 
-export const createUser:RequestHandler = (req, res, next) => {
+export const createUser: RequestHandler = (req, res, next) => {
     return UserService.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     }).then(r => {
         res.send(r)
     })
 }
 
-export const authenticate:RequestHandler = (req, res, next) => {
+export const authenticate: RequestHandler = (req, res, next) => {
     UserService.authenticate(req.body.email, req.body.password).then(r => {
         if (r === null) {
             return res.status(401).send();
@@ -43,7 +44,7 @@ export const authenticate:RequestHandler = (req, res, next) => {
     })
 }
 
-export const changePassword:RequestHandler = (req, res, next) => {
+export const changePassword: RequestHandler = (req, res, next) => {
     UserService.changePassword(req.user!.id, req.body.password).then(user => {
         res.json({});
     })
@@ -63,7 +64,7 @@ export const forgotPassword: RequestHandler = async (req, res, next) => {
         // Por enquanto, vamos apenas logar no console para você testar
         console.log(`>>> SIMULANDO ENVIO DE EMAIL PARA ${email} <<<`);
         console.log(`>>> NOVA SENHA TEMPORÁRIA: ${tempPassword} <<<`);
-        
+
         // TODO: Chamar sua função de envio de e-mail aqui passando o tempPassword
     }
 

@@ -2,6 +2,9 @@ import crypto from 'crypto';
 import prisma from '@/config/prisma';
 import Hash from '@/utils/hash';
 
+
+
+
 export const getAll = async () => {
     return await prisma.user.findMany({
         include: {
@@ -16,12 +19,13 @@ export const getById = async (id: string) => {
     });
 };
 
-export const create = async (data: { name: string; email: string, password: string }) => {
+export const create = async (data: { name: string; email: string, password: string, role: 'USER' | 'ADMIN' | 'INSTRUCTOR' }) => {
     const passwordHash = Hash.hash(data.password);
     const createData = {
         name: data.name,
         email: data.email,
-        passwordHash: passwordHash
+        passwordHash: passwordHash,
+        role: data.role
     }
 
     const alreadyCreatedUser = await prisma.user.findFirst({ where: { email: data.email } })
