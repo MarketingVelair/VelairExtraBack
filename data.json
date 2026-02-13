@@ -1,0 +1,147 @@
+{
+    "users": [
+        {
+            "id": "d44fc39e-3c90-48ca-b777-c54eb8f2b234",
+            "email": "estevan@velair.com",
+            "name": "Estevan",
+            "phone": null,
+            "passwordHash": "b2b466c530d0765bf1aed82550868c1b:b83c4cdb690551ecce1f85d052d3969d0cc8d4df806124c8dba7ff7626de1b06a337950d85d233cc15ee40c7c12ff8c2b797edc1d91411283a2118ccc8dceb17",
+            "role": "ADMIN",
+            "createdAt": "2026-02-12T18:23:01.159Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "1e28a6b5-cc72-4f04-b383-eec14850f17f",
+            "email": "denys@velair.com",
+            "name": "Denys",
+            "phone": null,
+            "passwordHash": "a6cd17b6e32dfe9f4246183c0861b8d2:0f12c3d9b20d4682c46064a50b637352cb3b48c61c04178edc4380571cbde61df090b1e2cb90d36e18be755462ea33828f615217fcebeed537d815c0d8298770",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:23:46.460Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "82a547e6-7cd6-46ab-867f-ac627043efdb",
+            "email": "lucasr@velair.com",
+            "name": "Lucas R.",
+            "phone": null,
+            "passwordHash": "110d6277742ee595c8a9c815d9411994:764c24a8c87fe28e2a5193309e421f827ac37e0347c7f7d6ecd4ce584ddf60b29907c082d08a83bb69da3b48164e125e8800caf2ba07de6544cf178b135fc5d4",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:24:22.960Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "4b78e409-723b-4e90-9412-c7e4775c5b0f",
+            "email": "jan@velair.com",
+            "name": "Jan",
+            "phone": null,
+            "passwordHash": "c37629c7cf74a8e9958ea2ef246597fa:35dc722121e016510592ce9639f0b937edd9e4c4fa42f222b4af713c2aed0833a3be3197654218759b9128fc4151b0319188c93031a270afa058314521618979",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:24:45.425Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "f5070bf7-7789-48f8-bab5-68e2c650f223",
+            "email": "kaique@velair.com",
+            "name": "Kaique",
+            "phone": null,
+            "passwordHash": "ad033673704f76c98f5359775ee1480d:73a84de914cf45aff2e95bb973e1e4ef84093d08746c177ab2c02e51ba6d4fd12762c945b6fccc3466ece8b3a0316bca2b1fa60781df7beb0180fcca18c6c062",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:25:12.952Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "74cee035-bdec-466d-bb3c-93507965025d",
+            "email": "lucas@velair.com",
+            "name": "Lucas C.",
+            "phone": null,
+            "passwordHash": "283a780f618246a097a2659d66a10784:842cbf5e1fccdb95549ab142ed1cb713760abc1abb3bb80602bfbba10023f1095cedfbfbd68be787600b654e86d29d8b6117da4c6a4dfaf774830dc56caf5498",
+            "role": "ADMIN",
+            "createdAt": "2026-02-12T18:26:15.733Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "1f4dbc69-456e-4ae8-acdd-6bf2f27daccf",
+            "email": "dario@velair.com",
+            "name": "Dario",
+            "phone": null,
+            "passwordHash": "d031d2547b1075eb81d24d48b22bc021:438b799d4f7c9c4e3b510c2a49a8f75995578c05961421e332af28110ffef5218940780454a6fe01383cf1dbef8018815a21941276b5ef80b2a612b995a56cb5",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:26:53.433Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "e686c2bf-cbc6-4503-a214-f252f8701c72",
+            "email": "erick@velair.com",
+            "name": "Erick",
+            "phone": null,
+            "passwordHash": "289cd78c21d074011f7fa78ae43d19a6:b2109c3082337dd1cae54cb6160402b15348dc86f536126be17973935091c398ed56370c4b8833800d39a150765d0d8ed2ae6e98bd12fb7efea34ad9da991603",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:27:30.831Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "36a1865c-a292-4f7e-860d-622137fc647f",
+            "email": "brener@velair.com",
+            "name": "Brener",
+            "phone": null,
+            "passwordHash": "0b872337aa493c875d2161bfcf4d74fd:935497fc1049916f183868521567c258a85f325efa910fb80483577c16ae915d49629ed73039033304167712fe3bd1f9ad7f48c76e8165a2bf2f49329734d2ef",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:28:06.029Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "778d9f3f-d347-4874-bb67-2b8d0e870f0b",
+            "email": "wagner@velair.com",
+            "name": "Wagner",
+            "phone": null,
+            "passwordHash": "4fa6e8e626bff648fcdae55a525b62dc:209ef8739a2ef7c3ee5ea6bd9f0b19cb4e2af0789360c5f5711f4e7c638388330a67b4ddaf6988ed0bbffed62da2e8ae106fbd0d5fefbca772e56ef935126040",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:28:27.634Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "22e0afa0-111e-4435-8dee-6d5023c1dd64",
+            "email": "luiz@velair.com",
+            "name": "Luiz",
+            "phone": null,
+            "passwordHash": "303f5f090b059164edd166828bed7cf1:ab704beac47cebc608b27c03578355515eec4730c5dc4616d7895f5dd478ada8b4ebd87894c060a09cc9feb902c244b6362c131bd00e4e62ee29bf64e5d8bf43",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:28:55.734Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "36fdc261-85e7-4adc-8587-af375b92565e",
+            "email": "leandro@velair.com",
+            "name": "Leandro",
+            "phone": null,
+            "passwordHash": "a33ec18432bd1e13762ee29b3e51ec57:4c8fab6e35383a48e0da14acd444582d080abf67a96bf3870cf8257e0b5e0a6169f6264f393730e39c553ec61e991c2b118474691ceb07f64f2540651a0ca0c0",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:29:18.325Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        },
+        {
+            "id": "5e2eb912-d287-4171-8bd6-9397c592fb89",
+            "email": "fernando@velair.com",
+            "name": "Fernando",
+            "phone": null,
+            "passwordHash": "c8582e005a8f7312175c0b4a5df7cd69:f4ad129b342e29e9c4445247475f82dda15fb8fcabd8f569683e5d00bcf0c54a6d062bdbdc341c0465c23faf36b74ac636a74c506ad0f1289df11683de1e5aa2",
+            "role": "INSTRUCTOR",
+            "createdAt": "2026-02-12T18:34:43.577Z",
+            "tempPasswordHash": null,
+            "tempPasswordExpiresAt": null
+        }
+    ]
+}

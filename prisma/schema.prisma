@@ -22,18 +22,19 @@ model User {
   role         UserRole @default(USER)
   createdAt    DateTime @default(now())
 
-  tempPasswordHash      String?   // It can be null (when there is no active recovery).
+  tempPasswordHash      String? // It can be null (when there is no active recovery).
   tempPasswordExpiresAt DateTime? // Temporary password expiration date
 
   authTokens UserAuthToken[]
 
   instructor Instructor?
+  flights    Flight[]
 }
 
 model UserAuthToken {
-  id      String  @id @default(uuid())
-  tokenHash   String  @unique
-  revoked Boolean @default(false)
+  id        String  @id @default(uuid())
+  tokenHash String  @unique
+  revoked   Boolean @default(false)
 
   createdAt  DateTime @default(now())
   expiresAt  DateTime
@@ -41,6 +42,7 @@ model UserAuthToken {
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([tokenHash])
 }
 
@@ -51,29 +53,31 @@ enum UserRole {
 }
 
 model ExamQuestionTheme {
-  id        String     @id @default(uuid())
-  title     String
-  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  questions ExamQuestion[]
+  id           String         @id @default(uuid())
+  title        String
+  fieldUpdates Json           @default(dbgenerated("'{}'::jsonb"))
+  questions    ExamQuestion[]
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
+
   @@index([updatedAt, deletedAt])
 }
 
 model ExamMultiChoiceOption {
-  id         String    @id @default(uuid())
-  title      String
-  question   ExamQuestion? @relation(fields: [questionId], references: [id])
-  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  questionId String?
-  isCorrect Boolean
-  index Int
-  
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
+  id           String        @id @default(uuid())
+  title        String
+  question     ExamQuestion? @relation(fields: [questionId], references: [id])
+  fieldUpdates Json          @default(dbgenerated("'{}'::jsonb"))
+  questionId   String?
+  isCorrect    Boolean
+  index        Int
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
+
   @@index([updatedAt, deletedAt])
 }
 
@@ -99,10 +103,11 @@ model ExamQuestion {
   examQuestions ExamTemplateQuestion[]
 
   fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
+
   @@index([updatedAt, deletedAt])
 }
 
@@ -115,10 +120,11 @@ model ExamTemplate {
   questions ExamTemplateQuestion[]
 
   fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
+
   @@index([updatedAt, deletedAt])
 }
 
@@ -134,39 +140,41 @@ model ExamTemplateQuestion {
   value      Float // The value for that specific exam
   orderIndex Int
 
-  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
-  deletedAt DateTime?
+  fieldUpdates Json      @default(dbgenerated("'{}'::jsonb"))
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+  deletedAt    DateTime?
+
   @@index([updatedAt, deletedAt])
 }
 
 model Instructor {
-  id String @id @default(uuid())
+  id     String @id @default(uuid())
   userId String @unique @default(uuid())
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  name String
-  cpf String
-  address String
-  state String
-  city String
-  rg String
-  id_emitter String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name             String
+  cpf              String
+  address          String
+  state            String
+  city             String
+  rg               String
+  id_emitter       String
   id_emission_date String
-  postalCode String
-  sex String
-  phone String
-  nationality String
-  naturalization String
-  canac String
+  postalCode       String
+  sex              String
+  phone            String
+  nationality      String
+  naturalization   String
+  canac            String
 
   flights Flight[]
 
-  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
-  deletedAt DateTime?
+  fieldUpdates Json      @default(dbgenerated("'{}'::jsonb"))
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+  deletedAt    DateTime?
+
   @@index([updatedAt, deletedAt])
 }
 
@@ -175,41 +183,45 @@ model Aircraft {
 
   modelFullName String
   modelIcaoName String
-  registration String
+  registration  String
 
   flights Flight[]
- 
-  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
-  deletedAt DateTime?
-  @@index([updatedAt, deletedAt]) 
+
+  fieldUpdates Json      @default(dbgenerated("'{}'::jsonb"))
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+  deletedAt    DateTime?
+
+  @@index([updatedAt, deletedAt])
 }
 
 enum FlightType {
   flight
   ground_school
 }
+
 model Flight {
-  id String @id @default(uuid())
-  aircraftId String
+  id           String @id @default(uuid())
+  aircraftId   String
   instructorId String
+  canceledById String?
 
-  flightType FlightType @default(flight)
-  title String
+  flightType    FlightType @default(flight)
+  title         String
   from_datetime DateTime
-  to_datetime DateTime
-  flightTime Float
-  aircraft Aircraft @relation(fields: [aircraftId], references: [id], onDelete: Cascade)
-  instructor Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
-  isConfirmed Boolean
-  isCanceled Boolean
-  cancelReason String @default("")
+  to_datetime   DateTime
+  flightTime    Float
+  aircraft      Aircraft   @relation(fields: [aircraftId], references: [id], onDelete: Cascade)
+  instructor    Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+  isConfirmed   Boolean
+  isCanceled    Boolean
+  cancelReason  String     @default("")
+  canceledBy    User       @relation(fields: [canceledById], references: [id], onDelete: Cascade)
 
+  fieldUpdates Json      @default(dbgenerated("'{}'::jsonb"))
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+  deletedAt    DateTime?
 
-  fieldUpdates Json @default(dbgenerated("'{}'::jsonb"))
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
-  deletedAt DateTime?
-  @@index([updatedAt, deletedAt]) 
+  @@index([updatedAt, deletedAt])
 }

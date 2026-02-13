@@ -1,6 +1,7 @@
 import type { RequestHandler } from "express";
 import UserService from '@/services/user.service';
 import Env from "@/utils/Env";
+import { validateEmail } from "@/utils/email";
 
 export const getAllUsers: RequestHandler = async (req, res, next) => {
     if (Env.env == Env.types.PRODUCTION) {
@@ -74,7 +75,16 @@ export const forgotPassword: RequestHandler = async (req, res, next) => {
 
 export const updateProfile: RequestHandler = async (req, res, next) => {
     try {
-        const { name, phone } = req.body;
+        const { name, email, phone } = req.body;
+
+        if (req.user!.email != email) {
+            if (!validateEmail(email)) {
+                return res.status(400).json({ message: "E-mail inválido" })
+            }
+            if (await UserService.getByEmail(email)) {
+                return res.status(400).json({ message: "E-mail já está cadastrado para outro usuário" })
+            }
+        }
 
         // Call the service passing the ID of the logged-in user (req.user!.id)
         const updatedUser = await UserService.updateProfile(req.user!.id, {

@@ -13,6 +13,14 @@ export const getAll = async () => {
     });
 };
 
+export const getByEmail = async (email: string) => {
+    return await prisma.user.findFirst({
+        where: {
+            email: email
+        }
+    });
+};
+
 export const getById = async (id: string) => {
     return await prisma.user.findUnique({
         where: { id },
@@ -132,6 +140,7 @@ export const changePassword = async (userId: string, newPassword: string) => {
 
 // Function to update user registration data (name and phone number)
 export const updateProfile = async (userId: string, data: { name?: string; phone?: string }) => {
+
     return await prisma.user.update({
         where: { id: userId },
         data: {
@@ -148,5 +157,6 @@ export default {
     authenticate,
     changePassword,
     recoverPassword,
-    updateProfile
+    updateProfile,
+    getByEmail
 }
