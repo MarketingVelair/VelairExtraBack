@@ -216,7 +216,7 @@ model Flight {
   isConfirmed   Boolean
   isCanceled    Boolean
   cancelReason  String     @default("")
-  canceledBy    User       @relation(fields: [canceledById], references: [id], onDelete: Cascade)
+  canceledBy    User?       @relation(fields: [canceledById], references: [id], onDelete: Cascade)
 
   fieldUpdates Json      @default(dbgenerated("'{}'::jsonb"))
   createdAt    DateTime  @default(now())

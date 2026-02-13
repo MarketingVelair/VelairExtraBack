@@ -17,7 +17,7 @@ ALTER TABLE "ExamTemplate" ALTER COLUMN "fieldUpdates" SET DEFAULT '{}'::jsonb;
 ALTER TABLE "ExamTemplateQuestion" ALTER COLUMN "fieldUpdates" SET DEFAULT '{}'::jsonb;
 
 -- AlterTable
-ALTER TABLE "Flight" ADD COLUMN     "canceledById" TEXT NOT NULL DEFAULT '',
+ALTER TABLE "Flight" ADD COLUMN     "canceledById" TEXT,
 ALTER COLUMN "fieldUpdates" SET DEFAULT '{}'::jsonb;
 
 -- AlterTable
